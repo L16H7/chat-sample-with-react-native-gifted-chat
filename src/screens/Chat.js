@@ -66,11 +66,10 @@ class Chat extends Component {
   }
 
   render() {
-    console.log("PROPS IN Chat.js");
-    console.log(this.props);
+    var name = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
     return (
       <View style={{ flex: 1 }}>
-        <NavBar title={"Richie"} button={"Friends"} action={this._friendList} />
+        <NavBar title={name} button={"Friends"} action={this._friendList} />
         <GiftedChat
           messages={this.state.messages}
           onSend={this.onSend}
