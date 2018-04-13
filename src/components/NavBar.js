@@ -8,18 +8,17 @@ class NavBarChat extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
   }
 
   render() {
     return (
       <NavBar>
         <NavButton />
-        <NavTitle>💬 {this.props.friendName}</NavTitle>
+        <NavTitle>💬 {this.props.title}</NavTitle>
         <NavButton />
-        <NavButton onPress={this.props.navButton}>
+        <NavButton onPress={this.props.action}>
           <NavButtonText>
-            {"Friends"}
+            {this.props.button}
           </NavButtonText>
         </NavButton>
       </NavBar>
