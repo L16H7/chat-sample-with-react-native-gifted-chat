@@ -4,10 +4,9 @@ import {
 } from "../constants/types";
 
 
-export const sendMessage = ({ message }) => {
-  console.log(message);
+export const sendMessage = ({ friend, message }) => {
   return (dispatch) => {
-    firebase.database().ref(`conversation/userId/friendId`)
+    firebase.database().ref(`conversation/userId/${friend}`)
       .push({ message })
       .then(() => {
         dispatch({ type: SEND_MESSAGE });

@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import reducers from "./src/reducers";
 import { createStore, applyMiddleware } from "redux";
+import firebase from "firebase";
 
 
 import { SwitchNav } from "./src/config/Router";
@@ -19,6 +20,18 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+    const config = {
+      apiKey: "AIzaSyCKmEPGOrckPPQBRe9NA3EK0-qnxR1BrkQ",
+      authDomain: "company-88b62.firebaseapp.com",
+      databaseURL: "https://company-88b62.firebaseio.com",
+      projectId: "company-88b62",
+      storageBucket: "company-88b62.appspot.com",
+      messagingSenderId: "209040713797"
+    };
+    firebase.initializeApp(config);
   }
 
   render() {

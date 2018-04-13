@@ -34,10 +34,12 @@ class Chat extends Component {
   componentDidMount() {
   }
 
-  onSendMessage() {
+  onSendMessage = (friend) => {
+    console.log(this.state.messages);
     message = "MMM";
-    this.sendMessage({ message })
+    this.props.sendMessage({ friend, message })
   }
+
   onSend(messages = []) {
     const step = this.state.step + 1;
     this.setState((previousState) => ({
@@ -81,7 +83,7 @@ class Chat extends Component {
         <NavBar title={name} button={"Friends"} action={this._friendList} />
         <GiftedChat
           messages={this.state.messages}
-          onSend={this.onSendMessage}
+          onSend={() => this.onSendMessage(name)}
           renderCustomView={CustomView}
           user={{
             _id: 1,
