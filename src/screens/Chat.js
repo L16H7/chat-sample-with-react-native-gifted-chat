@@ -34,18 +34,26 @@ class Chat extends Component {
   componentDidMount() {
   }
 
-  onSendMessage = (friend) => {
-    console.log(this.state.messages);
-    message = "MMM";
+  onSendMessage = (messages = []) => {
+    this.setState((previousState) => ({
+      messages: GiftedChat.append(previousState.messages, 
+        [{ ...messages[0], sent: true, received: true }]),
+    }));
+
+    const friend = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
+
+    var message = messages[0];
     this.props.sendMessage({ friend, message })
   }
 
   onSend(messages = []) {
+    console.log(messages);
     const step = this.state.step + 1;
     this.setState((previousState) => ({
       messages: GiftedChat.append(previousState.messages, [{ ...messages[0], sent: true, received: true }]),
       step,
     }));
+    console.log(this.state.messages);
     setTimeout(() => this.botSend(step), 1500 + Math.round(Math.random() * 1000));
   }
 
@@ -77,13 +85,15 @@ class Chat extends Component {
   }
 
   render() {
-    var name = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
+    const name = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
     return (
       <View style={{ flex: 1 }}>
         <NavBar title={name} button={"Friends"} action={this._friendList} />
         <GiftedChat
           messages={this.state.messages}
-          onSend={() => this.onSendMessage(name)}
+          // onSend={() => this.onSendMessage(name)}
+          onSend={this.onSendMessage}
+          // onSend={this.onSend}
           renderCustomView={CustomView}
           user={{
             _id: 1,
