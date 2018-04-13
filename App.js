@@ -8,6 +8,8 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import messagesData from './data';
 import NavBar from './NavBar';
 import CustomView from './CustomView';
+import { SwitchNav } from "./src/config/Router";
+
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
@@ -67,7 +69,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NavBar friendName={"Richard"} />
+        {/* <NavBar friendName={"Richard"} />
         <GiftedChat
           messages={this.state.messages}
           onSend={this.onSend}
@@ -76,7 +78,8 @@ export default class App extends Component {
             _id: 1,
           }}
           parsePatterns={this.parsePatterns}
-        />
+        /> */}
+        <SwitchNav />        
       </View>
     );
   }
