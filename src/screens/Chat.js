@@ -6,6 +6,11 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import { CustomView } from "../components/CustomView";
 import messagesData from "../../data"; 
 
+
+import { connect } from "react-redux";
+import { sendMessage } from "../actions/";
+
+
 const filterBotMessages = (message) => !message.system && message.user && message.user._id && message.user._id === 2;
 const findStep = (step) => (_, index) => index === step - 1;
 
@@ -29,6 +34,10 @@ class Chat extends Component {
   componentDidMount() {
   }
 
+  onSendMessage() {
+    message = "MMM";
+    this.sendMessage({ message })
+  }
   onSend(messages = []) {
     const step = this.state.step + 1;
     this.setState((previousState) => ({
@@ -72,7 +81,7 @@ class Chat extends Component {
         <NavBar title={name} button={"Friends"} action={this._friendList} />
         <GiftedChat
           messages={this.state.messages}
-          onSend={this.onSend}
+          onSend={this.onSendMessage}
           renderCustomView={CustomView}
           user={{
             _id: 1,
@@ -84,4 +93,4 @@ class Chat extends Component {
   }
 }
 
-export default Chat;
+export default connect(null, { sendMessage })(Chat);

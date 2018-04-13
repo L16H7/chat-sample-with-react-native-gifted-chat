@@ -5,6 +5,7 @@ import {
 
 
 export const sendMessage = ({ message }) => {
+  console.log(message);
   return (dispatch) => {
     firebase.database().ref(`conversation/userId/friendId`)
       .push({ message })
