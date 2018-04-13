@@ -11,7 +11,8 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-24.0.0.tar.gz",
     "react-native-gifted-chat": "https://github.com/FaridSafi/react-native-gifted-chat.git",
     "react-native-nav": "2.0.2",
-    "react-navigation": "^1.5.11"
+    "react-navigation": "^1.5.11",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "appr": "xcarpentier/appr"
