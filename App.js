@@ -67,7 +67,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NavBar />
+        <NavBar friendName={"Richard"} />
         <GiftedChat
           messages={this.state.messages}
           onSend={this.onSend}
