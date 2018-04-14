@@ -42,7 +42,9 @@ class Chat extends Component {
 
     const friend = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
 
-    var message = messages[0];
+    // var message = messages[0];
+    var message = [ ...this.state.messages, messages[0]];
+    console.log(message);
     this.props.sendMessage({ friend, message })
   }
 
@@ -54,7 +56,7 @@ class Chat extends Component {
       step,
     }));
     console.log(this.state.messages);
-    setTimeout(() => this.botSend(step), 1500 + Math.round(Math.random() * 1000));
+    // setTimeout(() => this.botSend(step), 1500 + Math.round(Math.random() * 1000));
   }
 
   botSend(step = 0) {
