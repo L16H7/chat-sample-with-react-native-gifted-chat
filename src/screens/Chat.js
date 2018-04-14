@@ -99,7 +99,7 @@ class Chat extends Component {
           onSend={this.onSendMessage}
           renderCustomView={CustomView}
           user={{
-            _id: 1,
+            _id: 3,
           }}
           parsePatterns={this.parsePatterns}
         />
@@ -109,8 +109,6 @@ class Chat extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("MSTP: ");
-  console.log(state);
   const messages = state.chat;
   return { messages };
 };

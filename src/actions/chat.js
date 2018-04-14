@@ -14,7 +14,7 @@ export const sendMessage = ({ friend, message }) => async dispatch => {
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: "" 
+      payload: message 
     });
   } catch (e) {
     console.log(">> SAVE ERROR: ", e);
