@@ -6,6 +6,6 @@
 1. **Run with local address**
 
 
-###release1.0
-**Minimal chat function between user and friends**
+###### release1.0
+**Minimal chat function between user and friends**\
 *User can chat all friends but friend can only chat with user (1 => many)*
