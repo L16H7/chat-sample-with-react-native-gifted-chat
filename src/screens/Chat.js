@@ -4,7 +4,8 @@ import { SwitchNavigation } from "react-navigation";
 import NavBar from "../components/NavBar";
 import { GiftedChat, Actions } from 'react-native-gifted-chat';
 import { CustomView } from "../components/CustomView";
-import { CustomActions } from "../components/CustomActions";
+// import CustomActions  from "../components/CustomActions";
+import MyActions from "../components/MyActions";
 import messagesData from "../../data"; 
 
 
@@ -31,6 +32,7 @@ class Chat extends Component {
   }
 
   componentDidMount() {
+    console.log(MyActions);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -71,20 +73,11 @@ class Chat extends Component {
   }
 
   renderCustomActions(props) {
-    /*
-    if (Platform.OS === 'ios') {
-      return (
-        <CustomActions
-          {...props}
-        />
-      );
-    }
-    */
     const options = {
-      'Action 1': (props) => {
+      'Image': (props) => {
         alert('option 1');
       },
-      'Action 2': (props) => {
+      'File': (props) => {
         alert('option 2');
       },
       'Cancel': () => {},
@@ -112,7 +105,9 @@ class Chat extends Component {
           messages={this.state.messages}
           onSend={this.onSendMessage}
           renderCustomView={CustomView}
-          renderActions={this.renderCustomActions}
+          // renderActions={this.renderCustomActions}
+          renderActions={MyActions}
+          // renderActions={CustomActions}
           user={{
             _id: uid,
           }}
