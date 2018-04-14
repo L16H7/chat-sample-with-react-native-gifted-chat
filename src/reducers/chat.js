@@ -14,7 +14,7 @@ export default (state = INITIAL_STATE, action) => {
       // return action.payload;
       break;
     case GET_MESSAGES_SUCCESS:
-      return action.payload;
+      return action.payload.reverse();
     default:
       return state;
   }

@@ -25,7 +25,9 @@ export const getMessages = (userId, friend) => {
   return (dispatch) => {
     firebase.database().ref(`conversation/${userId}/${friend}/messages`)
       .on("value", snapshot => {
-        dispatch({ type: GET_MESSAGES_SUCCESS, payload: snapshot.val() });
+        if (snapshot.val()) {
+          dispatch({ type: GET_MESSAGES_SUCCESS, payload: snapshot.val() });
+        }
       });
   };
 };
