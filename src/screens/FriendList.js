@@ -8,25 +8,30 @@ class FriendList extends Component {
         super(props);
     }
 
-    _chat = ( name ) => {
+    _chat = ( name, uid ) => {
         var obj = {
-            name: name
+            name: name,
+            uid: uid
         };
 
         this.props.navigation.navigate("Chat", obj);
     }
 
+    _logout = () => {
+        this.props.navigation.navigate("Login");
+    }
+
     render() {
         return (
             <View style={{ flex: 1, flexDirection: "column" }}>
-                <Navbar title={"Friends"} button={""} action={() => this._chat("Chat") } />
+                <Navbar title={"Friends"} button={"Logout"} action={() => this._logout() } />
                 <View style={{ paddingTop: 20 }}>
-                    <Button title={"Richie"} onPress={() => this._chat("Richie")} />
-                    <Button title={"Gilfoyle"} onPress={() => this._chat("Gilfoyle")} />
-                    <Button title={"Danish"} onPress={() => this._chat("Danish")} />
-                    <Button title={"Erlich"} onPress={() => this._chat("Erlich")} />
-                    <Button title={"Big Head"} onPress={() => this._chat("Big Head")} />
-                    <Button title={"Jared"} onPress={() => this._chat("Jared")} />
+                    <Button title={"Richie"} onPress={() => this._chat("Richie", "admin")} />
+                    <Button title={"Gilfoyle"} onPress={() => this._chat("Gilfoyle", "admin")} />
+                    <Button title={"Danish"} onPress={() => this._chat("Danish", "admin")} />
+                    <Button title={"Erlich"} onPress={() => this._chat("Erlich", "admin")} />
+                    <Button title={"Big Head"} onPress={() => this._chat("Big Head", "admin")} />
+                    <Button title={"Jared"} onPress={() => this._chat("Jared", "admin")} />
                 </View>
             </View>
         );

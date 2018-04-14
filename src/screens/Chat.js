@@ -20,9 +20,7 @@ class Chat extends Component {
     super(props);    
     this.state = {
       messages: [],
-      step: 0,
     };
-    this.onSend = this.onSend.bind(this);
     this.parsePatterns = this.parsePatterns.bind(this);
   }
 
@@ -52,27 +50,6 @@ class Chat extends Component {
     this.props.sendMessage({ friend, messagesUpdate })
   }
 
-  onSend(messages = []) {
-    const step = this.state.step + 1;
-    this.setState((previousState) => ({
-      messages: GiftedChat.append(previousState.messages, [{ ...messages[0], sent: true, received: true }]),
-      step,
-    }));
-    // set Timeout(() => this.botSend(step), 1500 + Math.round(Math.random() * 1000));
-  }
-
-  botSend(step = 0) {
-    const newMessage = messagesData
-      .reverse()
-      .filter(filterBotMessages)
-      .find(findStep(step));
-    if (newMessage) {
-      this.setState((previousState) => ({
-        messages: GiftedChat.append(previousState.messages, newMessage),
-      }));
-    }
-  }
-
   parsePatterns(linkStyle) {
     return [
       {
@@ -88,17 +65,25 @@ class Chat extends Component {
     this.props.navigation.navigate("List");
   }
 
+  _login = () => {
+    this.props.navigation.navigate("Login");
+  }
+
   render() {
-    const name = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
+    const uid = (this.props.navigation.state.params) ? this.props.navigation.state.params.uid : "uid-error";
+    const name = (uid === "admin" && this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Agent";
+    const buttonTitle = (uid === "admin") ? "Friends" : "Logout";
+    const buttonAction = (uid === "admin") ? this._friendList : this._login;
+
     return (
       <View style={{ flex: 1 }}>
-        <NavBar title={name} button={"Friends"} action={this._friendList} />
+        <NavBar title={name} button={buttonTitle} action={buttonAction} />
         <GiftedChat
           messages={this.state.messages}
           onSend={this.onSendMessage}
           renderCustomView={CustomView}
           user={{
-            _id: 1,
+            _id: {uid},
           }}
           parsePatterns={this.parsePatterns}
         />
