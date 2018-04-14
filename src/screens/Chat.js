@@ -8,7 +8,7 @@ import messagesData from "../../data";
 
 
 import { connect } from "react-redux";
-import { sendMessage } from "../actions/";
+import { sendMessage, getMessages } from "../actions/";
 
 
 const filterBotMessages = (message) => !message.system && message.user && message.user._id && message.user._id === 2;
@@ -27,11 +27,18 @@ class Chat extends Component {
   }
 
   componentWillMount() {
+    this.props.getMessages("userId", "Richie");
     // init with only system messages
     this.setState({ messages: messagesData.filter((message) => message.system) });
   }
 
   componentDidMount() {
+    console.log(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    this.setState({ messages: nextProps.messages });
   }
 
   onSendMessage = (messages = []) => {
@@ -49,14 +56,12 @@ class Chat extends Component {
   }
 
   onSend(messages = []) {
-    console.log(messages);
     const step = this.state.step + 1;
     this.setState((previousState) => ({
       messages: GiftedChat.append(previousState.messages, [{ ...messages[0], sent: true, received: true }]),
       step,
     }));
-    console.log(this.state.messages);
-    // setTimeout(() => this.botSend(step), 1500 + Math.round(Math.random() * 1000));
+    // set Timeout(() => this.botSend(step), 1500 + Math.round(Math.random() * 1000));
   }
 
   botSend(step = 0) {
@@ -93,9 +98,7 @@ class Chat extends Component {
         <NavBar title={name} button={"Friends"} action={this._friendList} />
         <GiftedChat
           messages={this.state.messages}
-          // onSend={() => this.onSendMessage(name)}
           onSend={this.onSendMessage}
-          // onSend={this.onSend}
           renderCustomView={CustomView}
           user={{
             _id: 1,
@@ -107,4 +110,11 @@ class Chat extends Component {
   }
 }
 
-export default connect(null, { sendMessage })(Chat);
+const mapStateToProps = (state) => {
+  console.log("MSTP: ");
+  console.log(state);
+  const messages = state.chat;
+  return { messages };
+};
+
+export default connect(mapStateToProps, { sendMessage, getMessages })(Chat);
