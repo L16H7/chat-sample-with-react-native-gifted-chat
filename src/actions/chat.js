@@ -24,7 +24,7 @@ export const sendMessage = ({ friend, messagesUpdate }) => async dispatch => {
 export const getMessages = (userId, friend) => {
   return (dispatch) => {
     firebase.database().ref(`conversation/${userId}/${friend}/messages`)
-      .once("value", snapshot => {
+      .on("value", snapshot => {
         if (snapshot.val()) {
           dispatch({ type: GET_MESSAGES_SUCCESS, payload: snapshot.val() });
         }

@@ -74,6 +74,7 @@ class Chat extends Component {
     const name = (uid === "admin" && this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Agent";
     const buttonTitle = (uid === "admin") ? "Friends" : "Logout";
     const buttonAction = (uid === "admin") ? this._friendList : this._login;
+    console.log(uid);
 
     return (
       <View style={{ flex: 1 }}>
@@ -83,7 +84,7 @@ class Chat extends Component {
           onSend={this.onSendMessage}
           renderCustomView={CustomView}
           user={{
-            _id: {uid},
+            _id: uid,
           }}
           parsePatterns={this.parsePatterns}
         />
