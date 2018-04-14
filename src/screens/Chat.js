@@ -29,15 +29,13 @@ class Chat extends Component {
   componentWillMount() {
     const name = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
     this.props.getMessages("userId", name);
-    // init with only system messages
-    // this.setState({ messages: messagesData.filter((message) => message.system) });
   }
 
   componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ messages: nextProps.messages });
+    this.setState({ messages: nextProps.messages.reverse() });
   }
 
   onSendMessage = (messages = []) => {
@@ -48,9 +46,10 @@ class Chat extends Component {
 
     const friend = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
 
-    var message = [ ...this.state.messages, messages[0]];
-    console.log(message);
-    this.props.sendMessage({ friend, message })
+    var messagesUpdate = this.state.messages.slice();
+    messagesUpdate.reverse();
+    messagesUpdate.push(messages[0]);
+    this.props.sendMessage({ friend, messagesUpdate })
   }
 
   onSend(messages = []) {
@@ -99,7 +98,7 @@ class Chat extends Component {
           onSend={this.onSendMessage}
           renderCustomView={CustomView}
           user={{
-            _id: 3,
+            _id: 1,
           }}
           parsePatterns={this.parsePatterns}
         />

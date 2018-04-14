@@ -9,11 +9,12 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
+  // console.log(action.type);
   switch (action.type) {
     case SEND_MESSAGE:
-      return action.payload.reverse();
+      return action.payload;
     case GET_MESSAGES_SUCCESS:
-      return action.payload.reverse();
+      return action.payload;
     default:
       return state;
   }

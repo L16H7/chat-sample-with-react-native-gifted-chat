@@ -5,16 +5,16 @@ import {
 } from "../constants/types";
 
 
-export const sendMessage = ({ friend, message }) => async dispatch => {
+export const sendMessage = ({ friend, messagesUpdate }) => async dispatch => {
   try {
     let updates = {};
-    updates[`/conversation/userId/${friend}/messages`] = message;
+    updates[`/conversation/userId/${friend}/messages`] = messagesUpdate;
 
     await firebase.database().ref().update(updates);
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: message 
+      payload: messagesUpdate 
     });
   } catch (e) {
     console.log(">> SAVE ERROR: ", e);
@@ -24,7 +24,7 @@ export const sendMessage = ({ friend, message }) => async dispatch => {
 export const getMessages = (userId, friend) => {
   return (dispatch) => {
     firebase.database().ref(`conversation/${userId}/${friend}/messages`)
-      .on("value", snapshot => {
+      .once("value", snapshot => {
         if (snapshot.val()) {
           dispatch({ type: GET_MESSAGES_SUCCESS, payload: snapshot.val() });
         }
