@@ -71,6 +71,7 @@ class Chat extends Component {
   }
 
   renderCustomActions(props) {
+    /*
     if (Platform.OS === 'ios') {
       return (
         <CustomActions
@@ -78,6 +79,7 @@ class Chat extends Component {
         />
       );
     }
+    */
     const options = {
       'Action 1': (props) => {
         alert('option 1');
