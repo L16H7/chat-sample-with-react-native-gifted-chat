@@ -27,21 +27,25 @@ class Chat extends Component {
   }
 
   componentWillMount() {
-    this.props.getMessages("userId", "Richie");
+    const name = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
+    this.props.getMessages("userId", name);
     // init with only system messages
     this.setState({ messages: messagesData.filter((message) => message.system) });
   }
 
   componentDidMount() {
-    console.log(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    console.log(">> nextProps.message:");
+    console.log(nextProps.messages);
     this.setState({ messages: nextProps.messages });
+    console.log(this.state.messages);
   }
 
   onSendMessage = (messages = []) => {
+    console.log(">>onSendMessage");
+    console.log(messages);
     this.setState((previousState) => ({
       messages: GiftedChat.append(previousState.messages, 
         [{ ...messages[0], sent: true, received: true }]),
