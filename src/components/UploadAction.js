@@ -12,6 +12,9 @@ import { Actions } from "react-native-gifted-chat";
 class UploadAction extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      modalVisible: false
+    };
   }
 
   renderIcon() {
@@ -22,9 +25,34 @@ class UploadAction extends Component {
     );
   }
 
+  onActionPress = () => {
+    alert("Action Pressed");
+    console.log(this.context);
+  }
+
+  onActionPress2 = () => {
+    const options = ["Image", "File", "Cancel"];
+    const cancelButtonIndex = options.length - 1;
+    this.context.actionSheet().showActionSheetWithOptions({
+      options,
+      cancelButtonIndex,
+    },
+    (buttonIndex) => {
+      switch (buttonIndex) {
+        case 0:
+          alert("Image Upload"); 
+          break;
+        case 1:
+          alert("File Upload");
+          break;
+        default:
+      }
+    });
+  }
+
   render() {
     return (
-      <TouchableOpacity style={styles.container} >
+      <TouchableOpacity style={styles.container} onPress={this.onActionPress} >
         {this.renderIcon()}        
       </TouchableOpacity>
     );
