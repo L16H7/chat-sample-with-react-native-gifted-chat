@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { 
   View,
@@ -16,8 +17,6 @@ class UploadAction extends Component {
     this.state = {
       modalVisible: false
     };
-
-    this.onActionPress = this.onActionPress.bind(this);
   }
 
   renderIcon() {
@@ -28,12 +27,7 @@ class UploadAction extends Component {
     );
   }
 
-  onActionPress() {
-    // alert("Action Pressed");
-    this.setModalVisible(true);
-  }
-
-  onActionPress2 = () => {
+  onActionPress = () => {
     const options = ["Image", "File", "Cancel"];
     const cancelButtonIndex = options.length - 1;
     this.context.actionSheet().showActionSheetWithOptions({
@@ -95,5 +89,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+UploadAction.contextTypes = {
+  actionSheet: PropTypes.func,
+};
 
 export default UploadAction;
