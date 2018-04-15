@@ -9,7 +9,7 @@ import UploadAction from "../components/UploadAction";
 
 
 import { connect } from "react-redux";
-import { sendMessage, getMessages, uploadImageAsync } from "../actions/";
+import { sendMessage, getMessages } from "../actions/";
 
 
 const filterBotMessages = (message) => !message.system && message.user && message.user._id && message.user._id === 2;
@@ -37,13 +37,17 @@ class Chat extends Component {
     this.setState({ messages: nextProps.messages.reverse() });
   }
 
-  onSendMessage = (messages = []) => {
+ onSendMessage = (messages = []) => {
     console.log(">>onSendMessage");
     console.log(messages);
-     if (messages[0].image) {
-       var uri = messages[0].image;
-       console.log(uri);
-       this.props.uploadImageAsync({ uri });
+     if (messages[0].uri) {
+       var uri = messages[0].uri;
+      //  this.props.uploadImageAsync({ uri });
+      //  var uploadUrl = await uploadImageAsync(uri);
+      // uploadImageAsync(uri);
+       console.log(">>uploadUrl");
+      //  console.log(uploadUrl);
+       return;
      }
 
     this.setState((previousState) => ({
@@ -117,5 +121,20 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, { 
   sendMessage, 
   getMessages,
-  uploadImageAsync
 })(Chat);
+
+async function uploadImageAsync(uri) {
+    console.log(uri);
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const ref = firebase
+      .storage()
+      .ref()
+      .child("test");
+  
+    const snapshot = await ref.put(blob);
+    console.log(snapshot.downloadURL);
+    return snapshot.downloadURL;
+  }
+  
+ 

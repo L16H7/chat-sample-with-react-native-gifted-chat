@@ -18,25 +18,9 @@ import { ImagePicker } from "expo";
 class UploadAction extends Component {
   constructor(props) {
     super(props);
-    this._images = [];
-    this.state = {
-      modalVisible: false
-    };
   }
 
   componentDidMount() {
-  }
-
-  setImages(images) {
-    this._images = images;
-  }
-  
-  getImages() {
-    return this._images;
-  }
-
-  selectImages = (images) => {
-    this.setImages(images);
   }
 
   pickImage = async () => {
@@ -44,7 +28,11 @@ class UploadAction extends Component {
       allowsEditing: false,
     });
 
-    console.log(pickerResult);
+    if (!pickerResult.cancelled) {
+      console.log(">>PickerResult URI");
+      console.log(pickerResult.uri);
+      this.props.onSend(pickerResult);
+    }
   }
 
   renderIcon() {
@@ -65,7 +53,6 @@ class UploadAction extends Component {
     (buttonIndex) => {
       switch (buttonIndex) {
         case 0:
-          // this.setModalVisible(true);
           this.pickImage();
           break;
         case 1:
@@ -76,38 +63,9 @@ class UploadAction extends Component {
     });
   }
 
-  setModalVisible(visible = false) {
-    this.setState({ modalVisible: visible });
-  }
-
-  sendImages = () => {
-    const images = this.getImages().map((image) => {
-      return {
-        image: image.uri,
-      };
-    });
-    this.props.onSend(images);
-    this.setImages([]);
-    this.setModalVisible(false);
-  }
-
   render() {
     return (
       <TouchableOpacity style={styles.container} onPress={this.onActionPress} >
-        <Modal
-          animationType={"slide"}
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => { this.setModalVisible(false); }}>
-          <Navbar title={"Image Upload"} button={"Cancel"} action={() => this.setModalVisible(false)} />
-          <CameraRollPicker
-            maximum={10}
-            imagesPerRow={4}
-            callback={this.selectImages}
-            selected={[]}
-          />
-          <Button title={"Send"} onPress={() => this.sendImages()} />
-        </Modal>
         {this.renderIcon()}        
       </TouchableOpacity>
     );
