@@ -4,7 +4,8 @@ import {
   TouchableOpacity,
   Modal,
   StyleSheet,
-  Text
+  Text,
+  Button
 } from "react-native";
 import { Actions } from "react-native-gifted-chat";
 
@@ -15,6 +16,8 @@ class UploadAction extends Component {
     this.state = {
       modalVisible: false
     };
+
+    this.onActionPress = this.onActionPress.bind(this);
   }
 
   renderIcon() {
@@ -25,9 +28,9 @@ class UploadAction extends Component {
     );
   }
 
-  onActionPress = () => {
-    alert("Action Pressed");
-    console.log(this.context);
+  onActionPress() {
+    // alert("Action Pressed");
+    this.setModalVisible(true);
   }
 
   onActionPress2 = () => {
@@ -50,9 +53,21 @@ class UploadAction extends Component {
     });
   }
 
+  setModalVisible(visible = false) {
+    this.setState({ modalVisible: visible });
+  }
+
   render() {
     return (
       <TouchableOpacity style={styles.container} onPress={this.onActionPress} >
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => { this.setModalVisible(false); }}>
+          <Text>{"Modal"}</Text>
+          <Button onPress={() => this.setModalVisible(false)} title={"X"} />
+        </Modal>
         {this.renderIcon()}        
       </TouchableOpacity>
     );
