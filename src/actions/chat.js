@@ -3,7 +3,8 @@ import { Platform } from "react-native";
 // import RNFetchBlob from "react-native-fetch-blob";
 import {
   SEND_MESSAGE,
-  GET_MESSAGES_SUCCESS
+  GET_MESSAGES_SUCCESS,
+  IMAGE_UPLOAD_SUCCESS
 } from "../constants/types";
 
 
@@ -33,6 +34,24 @@ export const getMessages = (userId, friend) => {
       });
   };
 };
+
+export const uploadImageAsync = ({ uri }) => async dispatch => {
+  console.log(uri);
+  const response = await fetch(uri);
+  const blob = await response.blob();
+  const ref = firebase
+    .storage()
+    .ref()
+    .child(uuid.v4());
+
+  const snapshot = await ref.put(blob);
+  console.log(snapshot.downloadURL);
+  // return snapshot.downloadURL;
+  dispatch({
+    type: IMAGE_UPLOAD_SUCCESS,
+    payload: snapshot.downloadURL
+  });
+}
 
 /*
 export const uploadImage = (uri, mime = "application/octet-stream") => {

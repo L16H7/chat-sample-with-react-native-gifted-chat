@@ -9,7 +9,7 @@ import UploadAction from "../components/UploadAction";
 
 
 import { connect } from "react-redux";
-import { sendMessage, getMessages } from "../actions/";
+import { sendMessage, getMessages, uploadImageAsync } from "../actions/";
 
 
 const filterBotMessages = (message) => !message.system && message.user && message.user._id && message.user._id === 2;
@@ -40,6 +40,12 @@ class Chat extends Component {
   onSendMessage = (messages = []) => {
     console.log(">>onSendMessage");
     console.log(messages);
+     if (messages[0].image) {
+       var uri = messages[0].image;
+       console.log(uri);
+       this.props.uploadImageAsync({ uri });
+     }
+
     this.setState((previousState) => ({
       messages: GiftedChat.append(previousState.messages, 
         [{ ...messages[0], sent: true, received: true }]),
@@ -84,7 +90,6 @@ class Chat extends Component {
     const name = (uid === "admin" && this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Agent";
     const buttonTitle = (uid === "admin") ? "Friends" : "Logout";
     const buttonAction = (uid === "admin") ? this._friendList : this._login;
-    console.log(uid);
 
     return (
       <View style={{ flex: 1 }}>
@@ -112,4 +117,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, { 
   sendMessage, 
   getMessages,
+  uploadImageAsync
 })(Chat);
