@@ -7,7 +7,7 @@ import { CustomView } from "../components/CustomView";
 // import CustomActions  from "../components/CustomActions";
 import MyActions from "../components/MyActions";
 import messagesData from "../../data"; 
-import TestComponent from "../components/TestComponent";
+import UploadAction from "../components/UploadAction";
 
 
 import { connect } from "react-redux";
@@ -74,21 +74,8 @@ class Chat extends Component {
   }
 
   renderCustomActions(props) {
-    const options = {
-      'Image': (props) => {
-        alert('option 1');
-      },
-      'File': (props) => {
-        alert('option 2');
-      },
-      'Cancel': () => {},
-    };
     return (
-      // <Actions
-      //   {...props}
-      //   options={options}
-      // />
-      <TestComponent {...props} />      
+      <UploadAction {...props} />      
     );
   }
 

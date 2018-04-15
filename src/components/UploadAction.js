@@ -3,7 +3,7 @@ import { Text } from "react-native";
 import { Actions } from "react-native-gifted-chat";
 
 
-class TestComponent extends Component {
+class UploadAction extends Component {
   constructor(props) {
     super(props);
  }
@@ -15,4 +15,4 @@ class TestComponent extends Component {
   }
 }
 
-export default TestComponent;
+export default UploadAction;
