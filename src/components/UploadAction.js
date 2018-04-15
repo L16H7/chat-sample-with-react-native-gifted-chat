@@ -71,14 +71,11 @@ class UploadAction extends Component {
   }
 
   sendImages = () => {
-    console.log("sendImages");
-    console.log(this.getImages());
     const images = this.getImages().map((image) => {
       return {
         image: image.uri,
       };
     });
-    console.log(images);
     this.props.onSend(images);
     this.setImages([]);
     this.setModalVisible(false);

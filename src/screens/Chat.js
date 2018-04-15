@@ -38,6 +38,8 @@ class Chat extends Component {
   }
 
   onSendMessage = (messages = []) => {
+    console.log(">>onSendMessage");
+    console.log(messages);
     this.setState((previousState) => ({
       messages: GiftedChat.append(previousState.messages, 
         [{ ...messages[0], sent: true, received: true }]),
