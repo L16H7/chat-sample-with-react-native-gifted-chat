@@ -9,6 +9,7 @@ import {
   Button
 } from "react-native";
 import Navbar from "../components/NavBar";
+import { NavButton, NavButtonText } from "react-native-nav";
 import { Actions } from "react-native-gifted-chat";
 import CameraRollPicker from "react-native-camera-roll-picker";
 
@@ -22,10 +23,17 @@ class UploadAction extends Component {
     };
   }
 
+  componentDidMount() {
+  }
+
   setImages(images) {
     this._images = images;
   }
   
+  getImages() {
+    return this._images;
+  }
+
   selectImages = (images) => {
     this.setImages(images);
   }
@@ -62,6 +70,18 @@ class UploadAction extends Component {
     this.setState({ modalVisible: visible });
   }
 
+  sendImages = () => {
+    console.log("sendImages");
+    const images = this.getImages().map((image) => {
+      return {
+        image: image.uri,
+      };
+    });
+    this.props.onSend(images);
+    this.setImages([]);
+    this.setModalVisible(false);
+  }
+
   render() {
     return (
       <TouchableOpacity style={styles.container} onPress={this.onActionPress} >
@@ -77,6 +97,7 @@ class UploadAction extends Component {
             callback={this.selectImages}
             selected={[]}
           />
+          <Button title={"Send"} onPress={() => this.sendImages()} />
         </Modal>
         {this.renderIcon()}        
       </TouchableOpacity>

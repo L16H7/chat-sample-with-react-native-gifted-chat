@@ -4,8 +4,6 @@ import { SwitchNavigation } from "react-navigation";
 import NavBar from "../components/NavBar";
 import { GiftedChat, Actions } from 'react-native-gifted-chat';
 import { CustomView } from "../components/CustomView";
-// import CustomActions  from "../components/CustomActions";
-import MyActions from "../components/MyActions";
 import messagesData from "../../data"; 
 import UploadAction from "../components/UploadAction";
 
@@ -33,7 +31,6 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    console.log(MyActions);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -95,8 +92,6 @@ class Chat extends Component {
           onSend={this.onSendMessage}
           renderCustomView={CustomView}
           renderActions={this.renderCustomActions}
-          // renderActions={MyActions}
-          // renderActions={CustomActions}
           user={{
             _id: uid,
           }}
