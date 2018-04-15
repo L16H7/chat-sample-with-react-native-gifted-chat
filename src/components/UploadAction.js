@@ -10,14 +10,24 @@ import {
 } from "react-native";
 import Navbar from "../components/NavBar";
 import { Actions } from "react-native-gifted-chat";
+import CameraRollPicker from "react-native-camera-roll-picker";
 
 
 class UploadAction extends Component {
   constructor(props) {
     super(props);
+    this._images = [];
     this.state = {
       modalVisible: false
     };
+  }
+
+  setImages(images) {
+    this._images = images;
+  }
+  
+  selectImages = (images) => {
+    this.setImages(images);
   }
 
   renderIcon() {
@@ -61,6 +71,12 @@ class UploadAction extends Component {
           visible={this.state.modalVisible}
           onRequestClose={() => { this.setModalVisible(false); }}>
           <Navbar title={"Image Upload"} button={"Cancel"} action={() => this.setModalVisible(false)} />
+          <CameraRollPicker
+            maximum={10}
+            imagesPerRow={4}
+            callback={this.selectImages}
+            selected={[]}
+          />
         </Modal>
         {this.renderIcon()}        
       </TouchableOpacity>
