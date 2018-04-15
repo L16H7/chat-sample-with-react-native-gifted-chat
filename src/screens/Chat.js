@@ -44,7 +44,7 @@ class Chat extends Component {
        var uri = messages[0].uri;
       //  this.props.uploadImageAsync({ uri });
       //  var uploadUrl = await uploadImageAsync(uri);
-      // uploadImageAsync(uri);
+      uploadImageAsync(uri);
        console.log(">>uploadUrl");
       //  console.log(uploadUrl);
        return;

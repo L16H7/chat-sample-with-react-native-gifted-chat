@@ -31,7 +31,10 @@ class UploadAction extends Component {
     if (!pickerResult.cancelled) {
       console.log(">>PickerResult URI");
       console.log(pickerResult.uri);
+      pickerResult.image = pickerResult.uri;
       this.props.onSend(pickerResult);
+    } else {
+      console.log(">>Picker cancelled");
     }
   }
 
