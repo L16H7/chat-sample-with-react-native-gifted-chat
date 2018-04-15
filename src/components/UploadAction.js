@@ -12,6 +12,7 @@ import Navbar from "../components/NavBar";
 import { NavButton, NavButtonText } from "react-native-nav";
 import { Actions } from "react-native-gifted-chat";
 import CameraRollPicker from "react-native-camera-roll-picker";
+import { ImagePicker } from "expo";
 
 
 class UploadAction extends Component {
@@ -38,6 +39,14 @@ class UploadAction extends Component {
     this.setImages(images);
   }
 
+  pickImage = async () => {
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: false,
+    });
+
+    console.log(pickerResult);
+  }
+
   renderIcon() {
     return (
       <View style={styles.wrapper} >
@@ -56,7 +65,8 @@ class UploadAction extends Component {
     (buttonIndex) => {
       switch (buttonIndex) {
         case 0:
-          this.setModalVisible(true);
+          // this.setModalVisible(true);
+          this.pickImage();
           break;
         case 1:
           alert("File Upload");
