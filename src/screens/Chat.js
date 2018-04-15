@@ -109,4 +109,7 @@ const mapStateToProps = (state) => {
   return { messages };
 };
 
-export default connect(mapStateToProps, { sendMessage, getMessages })(Chat);
+export default connect(mapStateToProps, { 
+  sendMessage, 
+  getMessages,
+})(Chat);

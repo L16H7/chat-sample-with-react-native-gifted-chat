@@ -1,6 +1,6 @@
 import * as firebase from "firebase";
 import { Platform } from "react-native";
-import RNFetchBlob from "react-native-fetch-blob";
+// import RNFetchBlob from "react-native-fetch-blob";
 import {
   SEND_MESSAGE,
   GET_MESSAGES_SUCCESS
@@ -34,9 +34,13 @@ export const getMessages = (userId, friend) => {
   };
 };
 
+/*
 export const uploadImage = (uri, mime = "application/octet-stream") => {
   const Blob = RNFetchBlob.polyfill.Blob;
   const fs = Blob.fs;
+
+  window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+  window.Blob = Blob;
 
   return (dispatch) => {
     return new Promise((resolve, reject) => {
@@ -68,3 +72,4 @@ export const uploadImage = (uri, mime = "application/octet-stream") => {
     });
   };
 }
+*/
