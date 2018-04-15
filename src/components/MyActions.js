@@ -25,6 +25,28 @@ var MyActions = function(props) {
     );
   }
 
+  var onActionPress2 = function() {
+    const options = {
+      'Image': (props) => {
+        alert('option 1');
+      },
+      'File': (props) => {
+        alert('option 2');
+      },
+      'Cancel': () => {},
+    };
+  
+    return (
+      <Actions
+        options={options}
+      />
+    );
+  }
+
+  var onActionPress = function() {
+    setModalVisible(true);
+  }
+
   var renderNavBar = function() {
     return (
       <NavBar style={{
@@ -71,17 +93,8 @@ var MyActions = function(props) {
   }
 
 
-  const options = {
-    'Image': (props) => {
-      alert('option 1');
-    },
-    'File': (props) => {
-      alert('option 2');
-    },
-    'Cancel': () => {},
-  };
-  return (
-    <TouchableOpacity style={styles.container}>
+ return (
+    <TouchableOpacity style={styles.container} onPress={onActionPress()}>
       <Modal
         animationType={"slide"}
         transparent={false}

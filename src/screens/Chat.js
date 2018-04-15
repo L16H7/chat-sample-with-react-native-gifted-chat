@@ -7,6 +7,7 @@ import { CustomView } from "../components/CustomView";
 // import CustomActions  from "../components/CustomActions";
 import MyActions from "../components/MyActions";
 import messagesData from "../../data"; 
+import TestComponent from "../components/TestComponent";
 
 
 import { connect } from "react-redux";
@@ -83,10 +84,11 @@ class Chat extends Component {
       'Cancel': () => {},
     };
     return (
-      <Actions
-        {...props}
-        options={options}
-      />
+      // <Actions
+      //   {...props}
+      //   options={options}
+      // />
+      <TestComponent {...props} />      
     );
   }
 
@@ -105,8 +107,8 @@ class Chat extends Component {
           messages={this.state.messages}
           onSend={this.onSendMessage}
           renderCustomView={CustomView}
-          // renderActions={this.renderCustomActions}
-          renderActions={MyActions}
+          renderActions={this.renderCustomActions}
+          // renderActions={MyActions}
           // renderActions={CustomActions}
           user={{
             _id: uid,
