@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { View, Button, Text } from "react-native";
+import { View, Button, Text, Platform } from "react-native";
 import { SwitchNavigation } from "react-navigation";
 import NavBar from "../components/NavBar";
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, Actions } from 'react-native-gifted-chat';
 import { CustomView } from "../components/CustomView";
 import messagesData from "../../data"; 
+import UploadAction from "../components/UploadAction";
 
 
 import { connect } from "react-redux";
@@ -69,6 +70,13 @@ class Chat extends Component {
     this.props.navigation.navigate("Login");
   }
 
+  renderCustomActions(props) {
+    return (
+      <UploadAction {...props} />      
+    );
+  }
+
+
   render() {
     const uid = (this.props.navigation.state.params) ? this.props.navigation.state.params.uid : "uid-error";
     const name = (uid === "admin" && this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Agent";
@@ -83,6 +91,7 @@ class Chat extends Component {
           messages={this.state.messages}
           onSend={this.onSendMessage}
           renderCustomView={CustomView}
+          renderActions={this.renderCustomActions}
           user={{
             _id: uid,
           }}
