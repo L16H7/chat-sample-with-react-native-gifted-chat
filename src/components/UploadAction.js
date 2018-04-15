@@ -8,6 +8,7 @@ import {
   Text,
   Button
 } from "react-native";
+import Navbar from "../components/NavBar";
 import { Actions } from "react-native-gifted-chat";
 
 
@@ -37,7 +38,7 @@ class UploadAction extends Component {
     (buttonIndex) => {
       switch (buttonIndex) {
         case 0:
-          alert("Image Upload"); 
+          this.setModalVisible(true);
           break;
         case 1:
           alert("File Upload");
@@ -59,8 +60,7 @@ class UploadAction extends Component {
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => { this.setModalVisible(false); }}>
-          <Text>{"Modal"}</Text>
-          <Button onPress={() => this.setModalVisible(false)} title={"X"} />
+          <Navbar title={"Image Upload"} button={"Cancel"} action={() => this.setModalVisible(false)} />
         </Modal>
         {this.renderIcon()}        
       </TouchableOpacity>
