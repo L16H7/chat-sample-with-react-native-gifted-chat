@@ -41,7 +41,12 @@ class UploadAction extends Component {
       console.log(e);
       alert('Upload failed, sorry :(');
     } finally {
-      this.props.onSend(downloadURL);
+      console.log(">>finally");
+      var message = {
+        image: downloadURL
+      }
+      console.log(downloadURL);
+      this.props.onSend(message);
     }
   };
 
@@ -111,9 +116,7 @@ UploadAction.contextTypes = {
 export default UploadAction;
 
 async function uploadImageAsync(uri) {
-    console.log(uri);
     const response = await fetch(uri);
-    console.log(response);
     const blob = await response.blob();
     const ref = firebase
       .storage()
@@ -121,7 +124,6 @@ async function uploadImageAsync(uri) {
       .child("test");
   
     const snapshot = await ref.put(blob);
-    console.log(snapshot.downloadURL);
     return snapshot.downloadURL;
   }
   
