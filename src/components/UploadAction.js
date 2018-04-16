@@ -13,6 +13,7 @@ import { NavButton, NavButtonText } from "react-native-nav";
 import { Actions } from "react-native-gifted-chat";
 import { ImagePicker } from "expo";
 import firebase from "firebase";
+import uuid from "uuid";
 
 
 class UploadAction extends Component {
@@ -25,7 +26,7 @@ class UploadAction extends Component {
 
   _pickImage = async () => {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: false,
+      allowsEditing: true,
     });
 
     this._handleImagePicked(pickerResult);
@@ -120,8 +121,8 @@ async function uploadImageAsync(uri) {
     const blob = await response.blob();
     const ref = firebase
       .storage()
-      .ref()
-      .child("test");
+      .ref("conversation/images/")
+      .child(uuid.v4());
   
     const snapshot = await ref.put(blob);
     return snapshot.downloadURL;
