@@ -11,32 +11,45 @@ import {
 import Navbar from "../components/NavBar";
 import { NavButton, NavButtonText } from "react-native-nav";
 import { Actions } from "react-native-gifted-chat";
-import CameraRollPicker from "react-native-camera-roll-picker";
+import { ImagePicker } from "expo";
+import firebase from "firebase";
+import uuid from "uuid";
 
 
 class UploadAction extends Component {
   constructor(props) {
     super(props);
-    this._images = [];
-    this.state = {
-      modalVisible: false
-    };
   }
 
   componentDidMount() {
   }
 
-  setImages(images) {
-    this._images = images;
-  }
-  
-  getImages() {
-    return this._images;
+  _pickImage = async () => {
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+    });
+
+    this._handleImagePicked(pickerResult);
   }
 
-  selectImages = (images) => {
-    this.setImages(images);
-  }
+  _handleImagePicked = async pickerResult => {
+    var downloadURL = "";
+    try {
+      if (!pickerResult.cancelled) {
+        downloadURL = await uploadImageAsync(pickerResult.uri);
+      }
+    } catch (e) {
+      console.log(e);
+      alert('Upload failed, sorry :(');
+    } finally {
+      console.log(">>finally");
+      var message = {
+        image: downloadURL
+      }
+      console.log(downloadURL);
+      this.props.onSend(message);
+    }
+  };
 
   renderIcon() {
     return (
@@ -56,7 +69,7 @@ class UploadAction extends Component {
     (buttonIndex) => {
       switch (buttonIndex) {
         case 0:
-          this.setModalVisible(true);
+          this._pickImage();
           break;
         case 1:
           alert("File Upload");
@@ -66,41 +79,9 @@ class UploadAction extends Component {
     });
   }
 
-  setModalVisible(visible = false) {
-    this.setState({ modalVisible: visible });
-  }
-
-  sendImages = () => {
-    console.log("sendImages");
-    console.log(this.getImages());
-    const images = this.getImages().map((image) => {
-      return {
-        image: image.uri,
-      };
-    });
-    console.log(images);
-    this.props.onSend(images);
-    this.setImages([]);
-    this.setModalVisible(false);
-  }
-
   render() {
     return (
       <TouchableOpacity style={styles.container} onPress={this.onActionPress} >
-        <Modal
-          animationType={"slide"}
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => { this.setModalVisible(false); }}>
-          <Navbar title={"Image Upload"} button={"Cancel"} action={() => this.setModalVisible(false)} />
-          <CameraRollPicker
-            maximum={10}
-            imagesPerRow={4}
-            callback={this.selectImages}
-            selected={[]}
-          />
-          <Button title={"Send"} onPress={() => this.sendImages()} />
-        </Modal>
         {this.renderIcon()}        
       </TouchableOpacity>
     );
@@ -134,3 +115,17 @@ UploadAction.contextTypes = {
 };
 
 export default UploadAction;
+
+async function uploadImageAsync(uri) {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const ref = firebase
+      .storage()
+      .ref("conversation/images/")
+      .child(uuid.v4());
+  
+    const snapshot = await ref.put(blob);
+    return snapshot.downloadURL;
+  }
+  
+ 

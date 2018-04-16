@@ -4,7 +4,6 @@ import { SwitchNavigation } from "react-navigation";
 import NavBar from "../components/NavBar";
 import { GiftedChat, Actions } from 'react-native-gifted-chat';
 import { CustomView } from "../components/CustomView";
-import messagesData from "../../data"; 
 import UploadAction from "../components/UploadAction";
 
 
@@ -37,7 +36,10 @@ class Chat extends Component {
     this.setState({ messages: nextProps.messages.reverse() });
   }
 
-  onSendMessage = (messages = []) => {
+ onSendMessage = (messages = []) => {
+    console.log(">>onSendMessage");
+    console.log(messages);
+
     this.setState((previousState) => ({
       messages: GiftedChat.append(previousState.messages, 
         [{ ...messages[0], sent: true, received: true }]),
@@ -47,7 +49,11 @@ class Chat extends Component {
 
     var messagesUpdate = this.state.messages.slice();
     messagesUpdate.reverse();
-    messagesUpdate.push(messages[0]);
+    // console.log(messagesUpdate);
+
+    if (!messages[0].image) {
+      messagesUpdate.push(messages[0]);
+    }
     this.props.sendMessage({ friend, messagesUpdate })
   }
 
@@ -82,7 +88,6 @@ class Chat extends Component {
     const name = (uid === "admin" && this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Agent";
     const buttonTitle = (uid === "admin") ? "Friends" : "Logout";
     const buttonAction = (uid === "admin") ? this._friendList : this._login;
-    console.log(uid);
 
     return (
       <View style={{ flex: 1 }}>
@@ -107,4 +112,7 @@ const mapStateToProps = (state) => {
   return { messages };
 };
 
-export default connect(mapStateToProps, { sendMessage, getMessages })(Chat);
+export default connect(mapStateToProps, { 
+  sendMessage, 
+  getMessages,
+})(Chat);
