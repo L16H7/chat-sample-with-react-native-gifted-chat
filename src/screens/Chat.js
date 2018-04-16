@@ -4,7 +4,6 @@ import { SwitchNavigation } from "react-navigation";
 import NavBar from "../components/NavBar";
 import { GiftedChat, Actions } from 'react-native-gifted-chat';
 import { CustomView } from "../components/CustomView";
-import messagesData from "../../data"; 
 import UploadAction from "../components/UploadAction";
 
 
@@ -42,11 +41,7 @@ class Chat extends Component {
     console.log(messages);
      if (messages[0].uri) {
        var uri = messages[0].uri;
-      //  this.props.uploadImageAsync({ uri });
-      //  var uploadUrl = await uploadImageAsync(uri);
-      uploadImageAsync(uri);
        console.log(">>uploadUrl");
-      //  console.log(uploadUrl);
        return;
      }
 
@@ -122,19 +117,3 @@ export default connect(mapStateToProps, {
   sendMessage, 
   getMessages,
 })(Chat);
-
-async function uploadImageAsync(uri) {
-    console.log(uri);
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    const ref = firebase
-      .storage()
-      .ref()
-      .child("test");
-  
-    const snapshot = await ref.put(blob);
-    console.log(snapshot.downloadURL);
-    return snapshot.downloadURL;
-  }
-  
- 

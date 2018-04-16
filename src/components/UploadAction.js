@@ -11,8 +11,8 @@ import {
 import Navbar from "../components/NavBar";
 import { NavButton, NavButtonText } from "react-native-nav";
 import { Actions } from "react-native-gifted-chat";
-import CameraRollPicker from "react-native-camera-roll-picker";
 import { ImagePicker } from "expo";
+import firebase from "firebase";
 
 
 class UploadAction extends Component {
@@ -23,20 +23,27 @@ class UploadAction extends Component {
   componentDidMount() {
   }
 
-  pickImage = async () => {
+  _pickImage = async () => {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: false,
     });
 
-    if (!pickerResult.cancelled) {
-      console.log(">>PickerResult URI");
-      console.log(pickerResult.uri);
-      pickerResult.image = pickerResult.uri;
-      this.props.onSend(pickerResult);
-    } else {
-      console.log(">>Picker cancelled");
-    }
+    this._handleImagePicked(pickerResult);
   }
+
+  _handleImagePicked = async pickerResult => {
+    var downloadURL = "";
+    try {
+      if (!pickerResult.cancelled) {
+        downloadURL = await uploadImageAsync(pickerResult.uri);
+      }
+    } catch (e) {
+      console.log(e);
+      alert('Upload failed, sorry :(');
+    } finally {
+      this.props.onSend(downloadURL);
+    }
+  };
 
   renderIcon() {
     return (
@@ -56,7 +63,7 @@ class UploadAction extends Component {
     (buttonIndex) => {
       switch (buttonIndex) {
         case 0:
-          this.pickImage();
+          this._pickImage();
           break;
         case 1:
           alert("File Upload");
@@ -102,3 +109,20 @@ UploadAction.contextTypes = {
 };
 
 export default UploadAction;
+
+async function uploadImageAsync(uri) {
+    console.log(uri);
+    const response = await fetch(uri);
+    console.log(response);
+    const blob = await response.blob();
+    const ref = firebase
+      .storage()
+      .ref()
+      .child("test");
+  
+    const snapshot = await ref.put(blob);
+    console.log(snapshot.downloadURL);
+    return snapshot.downloadURL;
+  }
+  
+ 
