@@ -39,11 +39,6 @@ class Chat extends Component {
  onSendMessage = (messages = []) => {
     console.log(">>onSendMessage");
     console.log(messages);
-     if (messages[0].uri) {
-       var uri = messages[0].uri;
-       console.log(">>uploadUrl");
-       return;
-     }
 
     this.setState((previousState) => ({
       messages: GiftedChat.append(previousState.messages, 
@@ -54,7 +49,11 @@ class Chat extends Component {
 
     var messagesUpdate = this.state.messages.slice();
     messagesUpdate.reverse();
-    messagesUpdate.push(messages[0]);
+    // console.log(messagesUpdate);
+
+    if (!messages[0].image) {
+      messagesUpdate.push(messages[0]);
+    }
     this.props.sendMessage({ friend, messagesUpdate })
   }
 
