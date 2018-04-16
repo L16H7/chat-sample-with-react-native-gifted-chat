@@ -1,8 +1,8 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 9353,
+  "expoServerNgrokUrl": "https://6i-27x.l16h7.chat-sample-with-react-native-gifted-chat.exp.direct",
+  "packagerNgrokUrl": "https://packager.6i-27x.l16h7.chat-sample-with-react-native-gifted-chat.exp.direct",
+  "ngrokPid": 9371
 }
