@@ -25,10 +25,16 @@ class ChatScreen extends Component {
 
     this.agent = this.props.navigation.state.params.agent;
     this.client = this.props.navigation.state.params.client;
+    this.user = (this.props.navigation.state.params.isAgent) ?
+      Object.assign({}, this.agent) : Object.assign({}, this.client);
+
+    this.chatTitle = (this.props.navigation.state.params.isAgent) ?
+      this.client.name : this.agent.name;
   }
 
   componentDidMount() {
     this.props.getMessages('company-0001', this.agent._id, this.client._id);
+    console.log(this.props.navigation);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,15 +69,6 @@ class ChatScreen extends Component {
       },
     ];
   }
-  
-
-  _friendList = () => {
-    this.props.navigation.navigate("List");
-  }
-
-  _login = () => {
-    this.props.navigation.navigate("Login");
-  }
 
   renderCustomActions(props) {
     return (
@@ -90,7 +87,7 @@ class ChatScreen extends Component {
     
     return (
       <View style={{ flex: 1 }}>
-        <NavBar title={this.client.name} button={'Back'} />
+        <NavBar title={this.chatTitle} button={'Back'} action={() => this.props.navigation.navigate('Agents')} />
         <GiftedChat
           messages={this.state.messages}
           onSend={this.onSendMessage}
@@ -100,7 +97,7 @@ class ChatScreen extends Component {
           // user={{
           //   _id: _id,
           // }}
-          user={this.agent}
+          user={this.user}
           parsePatterns={this.parsePatterns}
         />
       </View>

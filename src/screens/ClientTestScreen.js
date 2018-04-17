@@ -24,11 +24,29 @@ class ClientTestScreen extends Component {
     this.dataSource = ds.cloneWithRows(agents);
   }
 
+  _goToChat = () => {
+    this.props.navigation.navigate('Chat', {
+      isAgent: false,
+      agent: {
+        _id: 'C0001-AG0001',
+        name: 'Smith',
+        avatar: ''
+      },
+      client: {
+        _id: 'C0001-CLI0001',
+        name: 'Anderson',
+        avatar: ''
+      }
+    });
+  }
+
   render() {
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
         <Navbar title={'Clients'} button={'Back'} 
           action={() => this.props.navigation.navigate('Agents')} />
+        <Button title={'Test as Anderson'} 
+          onPress={() => this._goToChat()} />
       </View>
     );
   }
