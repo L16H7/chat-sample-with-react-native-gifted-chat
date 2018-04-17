@@ -57,8 +57,9 @@ class AgentListScreen extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, flexDirection: "column" }}>
-        <Navbar title={"Login"} button={""} action={() => this._friendList()} />
+      <View style={{ flex: 1, flexDirection: 'column' }}>
+        <Navbar title={"Agents"} button={'Test as Client'} 
+          action={() => this.props.navigation.navigate('Test')} />
         <ListView
           enableEmptySections
           dataSource={this.dataSource}
