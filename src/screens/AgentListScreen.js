@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Button } from "react-native";
 import Navbar from "../components/NavBar";
+import AgentList from '../components/agents/AgentList';
 
 import { connect } from 'react-redux';
 import {
@@ -11,13 +12,16 @@ import {
 class AgentListScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      agents: []
+    };
   }
 
   componentDidMount() {
     this.props.getAgents("company-0001");
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     console.log('WRP');
     console.log(nextProps);
   }
