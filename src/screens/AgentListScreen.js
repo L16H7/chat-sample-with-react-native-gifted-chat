@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, Button, ListView } from "react-native";
 import Navbar from "../components/NavBar";
 import AgentList from '../components/agents/AgentList';
+import _ from 'lodash';
 
 import { connect } from 'react-redux';
 import {
@@ -35,12 +36,25 @@ class AgentListScreen extends Component {
     this.props.getAgents("company-0001");
   }
 
-  getDerivedStateFromProps(nextProps, prevState) {
-    console.log('WRP');
-    console.log(nextProps);
-    // this.createDataSource(nextProps.agents);
+  componentWillReceiveProps(nextProps) {
+    this.agentData = [];
+    _.map(nextProps.agents, (e) => {
+      this.agentData.push(e);
+    });
+    this.createDataSource(this.agentData);
+  }
+
+  /*
+  static getDerivedStateFromProps(nextProps, prevState) {
+    this.agentData = [];
+    _.map(nextProps.agents, (e) => {
+      this.agentData.push(e);
+    });
+    console.log(this.agentData);
+    this.createDataSource(this.agentData);
     return nextProps;
   }
+  */
 
   createDataSource(agents) {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
