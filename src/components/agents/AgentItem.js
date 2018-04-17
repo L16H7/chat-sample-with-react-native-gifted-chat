@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 });
 
 const AgentItem = (props) => (
-    <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Clients', props)}>
+    <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Clients', { agentId: props._id, clients: props.clients }) }>
       <Image source={{ uri: props.avatar }} style={styles.photo} />
       <Text style={styles.text}>
         {props.name}
