@@ -61,10 +61,8 @@ class AgentListScreen extends Component {
         <Navbar title={"Login"} button={""} action={() => this._friendList()} />
         <ListView
           enableEmptySections
-          // contentContainerStyle={styles.grid}
           dataSource={this.dataSource}
-          // renderRow={(e) => <Text>{e.name}</Text> }
-          renderRow={(agent) => <AgentItem {...agent} />}
+          renderRow={(agent) => <AgentItem {...agent} navigation={this.props.navigation} />}
         />
       </View>
     );

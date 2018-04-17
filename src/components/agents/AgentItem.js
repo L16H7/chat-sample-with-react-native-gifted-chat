@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
 });
 
 const AgentItem = (props) => (
-  <View style={styles.container}>
-    <Image source={{ uri: props.avatar }} style={styles.photo} />
-    <Text style={styles.text}>
-      {props.name}
-      {/* {`${props.name.first} ${props.name.last}`} */}
-    </Text>
-  </View>
+    <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Chat', props)}>
+      <Image source={{ uri: props.avatar }} style={styles.photo} />
+      <Text style={styles.text}>
+        {props.name}
+        {/* {`${props.name.first} ${props.name.last}`} */}
+      </Text>
+    </TouchableOpacity>
 );
 
 export default AgentItem;
