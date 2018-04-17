@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Button, ListView } from "react-native";
 import Navbar from "../components/NavBar";
-import AgentItem from '../components/agents/AgentItem';
+import ClientItem from '../components/clients/ClientItem';
 import _ from 'lodash';
 
 import { connect } from 'react-redux';
@@ -17,8 +17,9 @@ class ClientListScreen extends Component {
       clients: []
     };
 
+    console.log(this.props.navigation.state.params);
     this.clientData = [];
-    _.map(this.props.navigation.state.params, (e) => {
+    _.map(this.props.navigation.state.params.clients, (e) => {
       this.clientData.push(e);
     });
     this.createDataSource(this.clientData);
@@ -44,7 +45,7 @@ class ClientListScreen extends Component {
         <ListView
           enableEmptySections
           dataSource={this.dataSource}
-          renderRow={(agent) => <AgentItem {...agent} navigation={this.props.navigation} />}
+          renderRow={(client) => <ClientItem {...client} navigation={this.props.navigation} />}
         />
       </View>
     );

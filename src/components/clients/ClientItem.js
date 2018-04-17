@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
 });
 
 const ClientItem = (props) => (
-    <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Clients', props.clients)}>
-      <Image source={{ uri: props.avatar }} style={styles.photo} />
-      <Text style={styles.text}>
-        {props.name}
-        {/* {`${props.name.first} ${props.name.last}`} */}
-      </Text>
-    </TouchableOpacity>
+  <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Chat', props)}>
+    <Image source={{ uri: props.avatar }} style={styles.photo} />
+    <Text style={styles.text}>
+      {props.name}
+      {/* {`${props.name.first} ${props.name.last}`} */}
+    </Text>
+  </TouchableOpacity>
 );
 
 export default ClientItem;

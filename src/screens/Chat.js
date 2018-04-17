@@ -23,14 +23,14 @@ class Chat extends Component {
       messages: [],
     };
     this.parsePatterns = this.parsePatterns.bind(this);
-  }
 
-  componentWillMount() {
-    const name = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
-    this.props.getMessages("userId", name);
+    console.log(this.props);
   }
 
   componentDidMount() {
+    const name = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
+    this.props.getMessages("userId", name);
+    console.log(name);
   }
 
   componentWillReceiveProps(nextProps) {
