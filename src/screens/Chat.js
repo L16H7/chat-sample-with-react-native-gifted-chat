@@ -5,6 +5,7 @@ import NavBar from "../components/NavBar";
 import { GiftedChat, Actions } from 'react-native-gifted-chat';
 import { CustomView } from "../components/CustomView";
 import UploadAction from "../components/UploadAction";
+import SlackMessage from '../components/SlackMessage';
 
 
 import { connect } from "react-redux";
@@ -82,6 +83,11 @@ class Chat extends Component {
     );
   }
 
+  renderMessage(props) {
+    return (
+      <SlackMessage {...props} />
+    )
+  }
 
   render() {
     const uid = (this.props.navigation.state.params) ? this.props.navigation.state.params.uid : "uid-error";
@@ -97,6 +103,7 @@ class Chat extends Component {
           onSend={this.onSendMessage}
           renderCustomView={CustomView}
           renderActions={this.renderCustomActions}
+          renderMessage={this.renderMessage}
           user={{
             _id: uid,
           }}
