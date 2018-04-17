@@ -90,14 +90,13 @@ class Chat extends Component {
   }
 
   render() {
-    const uid = (this.props.navigation.state.params) ? this.props.navigation.state.params.uid : "uid-error";
-    const name = (uid === "admin" && this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Agent";
-    const buttonTitle = (uid === "admin") ? "Friends" : "Logout";
-    const buttonAction = (uid === "admin") ? this._friendList : this._login;
-
+    // TO-DO: change _id from authenticated person's id
+    const _id = this.props.navigation.state.params.agentId;
+    const name = this.props.navigation.state.params.name;
+    
     return (
       <View style={{ flex: 1 }}>
-        <NavBar title={name} button={buttonTitle} action={buttonAction} />
+        <NavBar title={name} button={'Back'} />
         <GiftedChat
           messages={this.state.messages}
           onSend={this.onSendMessage}
@@ -105,7 +104,7 @@ class Chat extends Component {
           renderActions={this.renderCustomActions}
           renderMessage={this.renderMessage}
           user={{
-            _id: uid,
+            _id: _id,
           }}
           parsePatterns={this.parsePatterns}
         />
