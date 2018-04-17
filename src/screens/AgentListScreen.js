@@ -13,8 +13,13 @@ class AgentListScreen extends Component {
     super(props);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getAgents("company-0001");
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('WRP');
+    console.log(nextProps);
   }
 
   render() {
@@ -26,7 +31,11 @@ class AgentListScreen extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  const agents = state.agent;
+  return { agents };
+};
 
-export default connect(null, {
+export default connect(mapStateToProps, {
   getAgents
 })(AgentListScreen);
