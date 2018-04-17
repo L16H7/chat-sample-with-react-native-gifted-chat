@@ -30,12 +30,12 @@ class ClientTestScreen extends Component {
       agent: {
         _id: 'C0001-AG0001',
         name: 'Smith',
-        avatar: ''
+        avatar: 'https://firebasestorage.googleapis.com/v0/b/company-88b62.appspot.com/o/company-0001%2Fagents%2Fagent_smith.jpeg?alt=media&token=fd92e0ab-2c39-47ab-9d5c-c045e543193c'
       },
       client: {
         _id: 'C0001-CLI0001',
         name: 'Anderson',
-        avatar: ''
+        avatar: 'https://firebasestorage.googleapis.com/v0/b/company-88b62.appspot.com/o/company-0001%2Fclients%2Fneo.jpeg?alt=media&token=de9e35e0-7688-4e7e-a53e-9fca5530f5e6' 
       }
     });
   }
