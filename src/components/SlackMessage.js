@@ -25,6 +25,9 @@ export default class Message extends React.Component {
     };
   }
 
+  componentDidMount() {
+  }
+
   renderDay() {
     if (this.props.currentMessage.createdAt) {
       const dayProps = this.getInnerComponentProps();
@@ -44,6 +47,10 @@ export default class Message extends React.Component {
     return <Bubble {...bubbleProps} />;
   }
 
+  onPressAvatar() {
+    console.log('avatar pressed');
+  }
+
   renderAvatar() {
     let extraStyle;
     if (
@@ -58,6 +65,7 @@ export default class Message extends React.Component {
     return (
       <Avatar
         {...avatarProps}
+        onPressAvatar={this.onPressAvatar}
         imageStyle={{ left: [styles.slackAvatar, avatarProps.imageStyle, extraStyle] }}
       />
     );
