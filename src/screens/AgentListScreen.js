@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Button, ListView } from "react-native";
 import Navbar from "../components/NavBar";
-import AgentList from '../components/agents/AgentList';
+import AgentItem from '../components/agents/AgentItem';
 import _ from 'lodash';
 
 import { connect } from 'react-redux';
@@ -19,13 +19,7 @@ class AgentListScreen extends Component {
 
      const agents = [
       {
-        name: "name1"
-      },
-      {
-        name: 'name2'
-      },
-      {
-        name: 'name3'
+        name: '...' 
       }
     ];
    
@@ -69,7 +63,8 @@ class AgentListScreen extends Component {
           enableEmptySections
           // contentContainerStyle={styles.grid}
           dataSource={this.dataSource}
-          renderRow={(e) => <Text>{e.name}</Text> }
+          // renderRow={(e) => <Text>{e.name}</Text> }
+          renderRow={(agent) => <AgentItem {...agent} />}
         />
       </View>
     );
