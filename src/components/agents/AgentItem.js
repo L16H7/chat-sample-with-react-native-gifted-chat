@@ -21,13 +21,17 @@ const styles = StyleSheet.create({
 });
 
 const AgentItem = (props) => (
-    <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Clients', { agentId: props._id, clients: props.clients }) }>
-      <Image source={{ uri: props.avatar }} style={styles.photo} />
-      <Text style={styles.text}>
-        {props.name}
-        {/* {`${props.name.first} ${props.name.last}`} */}
-      </Text>
-    </TouchableOpacity>
+  <TouchableOpacity style={styles.container} 
+    onPress={() => props.navigation.navigate('Clients', { 
+      agent: { _id: props._id, name: props.name, avatar: props.avatar },
+      clients: props.clients 
+    }) }>
+    <Image source={{ uri: props.avatar }} style={styles.photo} />
+    <Text style={styles.text}>
+      {props.name}
+      {/* {`${props.name.first} ${props.name.last}`} */}
+    </Text>
+  </TouchableOpacity>
 );
 
 export default AgentItem;

@@ -24,7 +24,8 @@ class Chat extends Component {
     };
     this.parsePatterns = this.parsePatterns.bind(this);
 
-    console.log(this.props);
+    this.agent = this.props.navigation.state.params.agent;
+    this.client = this.props.navigation.state.params.client;
   }
 
   componentDidMount() {
@@ -90,22 +91,21 @@ class Chat extends Component {
   }
 
   render() {
-    // TO-DO: change _id from authenticated person's id
-    const _id = this.props.navigation.state.params.agentId;
-    const name = this.props.navigation.state.params.name;
+    // TO-DO: user in GiftedChat should be Auth user
     
     return (
       <View style={{ flex: 1 }}>
-        <NavBar title={name} button={'Back'} />
+        <NavBar title={this.client.name} button={'Back'} />
         <GiftedChat
           messages={this.state.messages}
           onSend={this.onSendMessage}
           renderCustomView={CustomView}
           renderActions={this.renderCustomActions}
           renderMessage={this.renderMessage}
-          user={{
-            _id: _id,
-          }}
+          // user={{
+          //   _id: _id,
+          // }}
+          user={this.agent}
           parsePatterns={this.parsePatterns}
         />
       </View>
