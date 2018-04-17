@@ -51,12 +51,11 @@ class Chat extends Component {
 
     var messagesUpdate = this.state.messages.slice();
     messagesUpdate.reverse();
-    // console.log(messagesUpdate);
 
     if (!messages[0].image) {
       messagesUpdate.push(messages[0]);
     }
-    this.props.sendMessage({ friend, messagesUpdate })
+    this.props.sendMessage('company-0001', this.agent._id, this.client._id, messagesUpdate);
   }
 
   parsePatterns(linkStyle) {

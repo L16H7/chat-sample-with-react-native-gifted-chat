@@ -8,10 +8,10 @@ import {
 } from "../constants/types";
 
 
-export const sendMessage = ({ friend, messagesUpdate }) => async dispatch => {
+export const sendMessage = (companyId, agentId, clientId, messagesUpdate) => async dispatch => {
   try {
     let updates = {};
-    updates[`/conversation/userId/${friend}/messages`] = messagesUpdate;
+    updates[`/${companyId}/conversations/${agentId}/${clientId}/messages`] = messagesUpdate;
 
     await firebase.database().ref().update(updates);
 
