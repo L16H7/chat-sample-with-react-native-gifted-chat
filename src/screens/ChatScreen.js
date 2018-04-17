@@ -12,13 +12,16 @@ import { connect } from "react-redux";
 import { sendMessage, getMessages } from "../actions/";
 
 
-class Chat extends Component {
+class ChatScreen extends Component {
   constructor(props) {
     super(props);    
     this.state = {
       messages: [],
     };
     this.parsePatterns = this.parsePatterns.bind(this);
+
+    console.log('>>CS const');
+    console.log(this.props.navigation.state.params);
 
     this.agent = this.props.navigation.state.params.agent;
     this.client = this.props.navigation.state.params.client;
@@ -113,4 +116,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, { 
   sendMessage, 
   getMessages,
-})(Chat);
+})(ChatScreen);

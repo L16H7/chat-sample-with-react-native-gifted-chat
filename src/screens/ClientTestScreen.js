@@ -12,11 +12,11 @@ class ClientTestScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      clients: []
     };
   }
 
   componentDidMount() {
+
   }
 
   createDataSource(agents) {
@@ -27,12 +27,8 @@ class ClientTestScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
-        <Navbar title={'Clients'} button={'Back'} action={() => this._agentList()} />
-        {/* <ListView
-          enableEmptySections
-          dataSource={this.dataSource}
-          renderRow={(client) => <ClientItem {...client} navigation={this.props.navigation} />}
-        /> */}
+        <Navbar title={'Clients'} button={'Back'} 
+          action={() => this.props.navigation.navigate('Agents')} />
       </View>
     );
   }
