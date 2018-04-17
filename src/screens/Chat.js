@@ -12,10 +12,6 @@ import { connect } from "react-redux";
 import { sendMessage, getMessages } from "../actions/";
 
 
-const filterBotMessages = (message) => !message.system && message.user && message.user._id && message.user._id === 2;
-const findStep = (step) => (_, index) => index === step - 1;
-
-
 class Chat extends Component {
   constructor(props) {
     super(props);    
@@ -29,9 +25,7 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    const name = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
-    this.props.getMessages("userId", name);
-    console.log(name);
+    this.props.getMessages('company-0001', this.agent._id, this.client._id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,9 +41,8 @@ class Chat extends Component {
         [{ ...messages[0], sent: true, received: true }]),
     }));
 
-    const friend = (this.props.navigation.state.params) ? this.props.navigation.state.params.name : "Richie";
 
-    var messagesUpdate = this.state.messages.slice();
+    let messagesUpdate = this.state.messages.slice();
     messagesUpdate.reverse();
 
     if (!messages[0].image) {

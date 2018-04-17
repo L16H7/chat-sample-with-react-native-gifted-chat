@@ -24,9 +24,9 @@ export const sendMessage = (companyId, agentId, clientId, messagesUpdate) => asy
   }
 };
 
-export const getMessages = (userId, friend) => {
+export const getMessages = (companyId, agentId, clientId) => {
   return (dispatch) => {
-    firebase.database().ref(`conversation/${userId}/${friend}/messages`)
+    firebase.database().ref(`/${companyId}/conversations/${agentId}/${clientId}/messages`)
       .on("value", snapshot => {
         if (snapshot.val()) {
           dispatch({ type: GET_MESSAGES_SUCCESS, payload: snapshot.val() });
