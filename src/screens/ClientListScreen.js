@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import { connect } from 'react-redux';
 import {
-  getAgentClients
+  // getAgentClients
 } from '../actions';
 
 
@@ -27,6 +27,7 @@ class ClientListScreen extends Component {
   }
 
   componentDidMount() {
+    console.log('>>ClientListScreen Mounted');
     console.log(this.props);
   }
 
@@ -70,10 +71,8 @@ class ClientListScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const agents = state.agent;
-  return { agents };
 };
 
-export default connect(mapStateToProps, {
-  getAgentClients
+export default connect(null, {
+  // getAgentClients
 })(ClientListScreen);

@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const AgentItem = (props) => (
+const ClientItem = (props) => (
     <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Clients', props.clients)}>
       <Image source={{ uri: props.avatar }} style={styles.photo} />
       <Text style={styles.text}>
@@ -30,4 +30,4 @@ const AgentItem = (props) => (
     </TouchableOpacity>
 );
 
-export default AgentItem;
+export default ClientItem;

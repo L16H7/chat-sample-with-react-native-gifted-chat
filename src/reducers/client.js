@@ -8,7 +8,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action.payload);
   switch (action.type) {
     case GET_AGENT_CLIENTS_SUCCESS:
       return action.payload;
