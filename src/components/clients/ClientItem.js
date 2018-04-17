@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 });
 
 const ClientItem = (props) => (
-  <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Chat', props)}>
+  <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Chat', { clientId: props._id, agentId: props.agentId })}>
     <Image source={{ uri: props.avatar }} style={styles.photo} />
     <Text style={styles.text}>
       {props.name}

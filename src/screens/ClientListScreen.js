@@ -18,8 +18,10 @@ class ClientListScreen extends Component {
     };
 
     console.log(this.props.navigation.state.params);
+    const agentId = this.props.navigation.state.params.agentId;
     this.clientData = [];
     _.map(this.props.navigation.state.params.clients, (e) => {
+      e.agentId = agentId;
       this.clientData.push(e);
     });
     this.createDataSource(this.clientData);
